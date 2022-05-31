@@ -1,0 +1,27 @@
+{
+  "nouns": [
+    {
+      "position": 1,
+      "word": "cosa",
+      "translation": "thing"
+    },{
+      "position": 2,
+      "word": "anno",
+      "translation": "year"
+    }
+  ],
+  "adjectives": [
+    {
+      "position": 1,
+      "word": "mio",
+      "translation": "my"
+    }
+  ],
+  "verbs": [
+    {
+      "position": 1,
+      "word": "essere",
+      "translation": "to be"
+    }
+  ]
+}

@@ -14,7 +14,7 @@ root.render(
   <React.StrictMode>
       <Router>
           <App/>
-          <Navigation />
+          {/*<Navigation />*/}
       </Router>
   </React.StrictMode>
 );

@@ -1,9 +1,10 @@
 import React from "react";
+import Greetings from "../components/greetings";
 
 function Words(){
     return (
-        <div>
-            words
+        <div className="words-container">
+            <Greetings />
         </div>
     )
 }

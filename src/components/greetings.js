@@ -1,8 +1,10 @@
 import React from "react";
+import { useTranslation} from "react-i18next";
 import {Box, Typography} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 function Greetings(){
+    const { t } = useTranslation()
     return(
         <Box>
             <Typography sx={{
@@ -11,7 +13,7 @@ function Greetings(){
                 justifyContent: 'center',
                 alignItems: 'center'
             }} color="text.secondary" gutterBottom>
-                Ciao Ike <FavoriteIcon color="error" />
+                {t('greetings:hello', { name: 'Ike'})} <FavoriteIcon color="error" />
             </Typography>
             <Typography sx={{
                 fontSize: 14,
@@ -19,7 +21,7 @@ function Greetings(){
                 justifyContent: 'center',
                 alignItems: 'center'
             }} color="text.secondary" gutterBottom>
-                Scegli una parola
+                {t('greetings:choose_type')}
             </Typography>
         </Box>
     )

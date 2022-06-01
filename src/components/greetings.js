@@ -13,7 +13,7 @@ function Greetings(){
                 justifyContent: 'center',
                 alignItems: 'center'
             }} color="text.secondary" gutterBottom>
-                {t('greetings:hello', { name: 'Ike'})} <FavoriteIcon color="error" />
+                {t('hello', { name: 'Ike'})} <FavoriteIcon color="error" />
             </Typography>
             <Typography sx={{
                 fontSize: 14,
@@ -21,7 +21,7 @@ function Greetings(){
                 justifyContent: 'center',
                 alignItems: 'center'
             }} color="text.secondary" gutterBottom>
-                {t('greetings:choose_type')}
+                {t('choose_type')}
             </Typography>
         </Box>
     )

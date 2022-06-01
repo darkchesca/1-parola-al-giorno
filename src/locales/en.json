@@ -1,4 +1,7 @@
 {
   "choose_type": "Choose a type",
-  "hello": "Hello {{name}}!"
+  "en": "English",
+  "hello": "Hello {{name}}!",
+  "it": "Italian",
+  "language": "Language"
 }

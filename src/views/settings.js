@@ -1,21 +1,31 @@
 import React, { useState } from 'react';
-import { Box, Button, TextField } from '@mui/material';
+import { useTranslation } from "react-i18next";
+import {Box, Button, FormControl, InputLabel, MenuItem, Select, TextField} from '@mui/material';
+import i18next from "i18next";
 
 function Settings() {
-  const [name, setName] = useState(localStorage.getItem('name') || '');
+    const { t } = useTranslation();
+    const [lang, setLang] = useState(i18next.language);
+    const [name, setName] = useState(localStorage.getItem('name') || '');
 
-  const onNameChange = (e) => {
-    console.log('val', e.target.value);
-    setName(e.target.value);
-  };
+    const onLangChange = (e) => {
+        const val = e.target.value;
+        setLang(val);
+        i18next.changeLanguage(val);
+    }
 
-  const onNameChangeConfirm = () => {
-    localStorage.setItem('name', name);
-  };
+    const onNameChange = (e) => {
+        setName(e.target.value);
+    };
 
-  const onChangeDiscard = () => {
-    setName(localStorage.name);
-  };
+      const onNameChangeConfirm = () => {
+          localStorage.setItem('name', name);
+      };
+
+      const onChangeDiscard = () => {
+          setName(localStorage.name);
+      };
+
   return (
     <Box
       component="form"
@@ -29,41 +39,58 @@ function Settings() {
       noValidate
       autoComplete="off"
     >
-      <TextField
-        id="name"
-        label="Change Name"
-        variant="outlined"
-        value={name}
-        onChange={onNameChange}
-        sx={{
-          m: 2,
-        }}
-      />
-      <div>
-        <Button
-          variant="contained"
-          color="success"
-          size="sm"
-          onClick={onNameChangeConfirm}
-          disabled={name === localStorage.name}
-          sx={{
-            m: 2,
-          }}
-        >
-          OK
-        </Button>
-        <Button
-          variant="contained"
-          color="error"
-          onClick={onChangeDiscard}
-          disabled={name === localStorage.name}
-          sx={{
-            m: 2,
-          }}
-        >
-          Ko
-        </Button>
-      </div>
+        <div>
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id="language-select">{t('language')}</InputLabel>
+                <Select
+                    labelId="language-select"
+                    id="language-select"
+                    value={lang}
+                    label={t('language')}
+                    onChange={onLangChange}
+                >
+                    <MenuItem value={'it'}>{t('it')}</MenuItem>
+                    <MenuItem value={'en'}>{t('en')}</MenuItem>
+                </Select>
+            </FormControl>
+        </div>
+        <div>
+          <TextField
+            id="name"
+            label="Change Name"
+            variant="outlined"
+            value={name}
+            onChange={onNameChange}
+            sx={{
+              m: 2,
+            }}
+          />
+          <div>
+            <Button
+              variant="contained"
+              color="success"
+              size="sm"
+              onClick={onNameChangeConfirm}
+              disabled={name === localStorage.name}
+              sx={{
+                m: 2,
+              }}
+            >
+              OK
+            </Button>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={onChangeDiscard}
+              disabled={name === localStorage.name}
+              sx={{
+                m: 2,
+              }}
+            >
+              Ko
+            </Button>
+          </div>
+        </div>
 
     </Box>
   );

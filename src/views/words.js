@@ -4,7 +4,8 @@ import {Box, Button, Card, CardContent, Typography} from "@mui/material";
 
 const words = require('../words.json');
 
-
+// todo make it word of the day with timeout
+// add learn words to blacklist
 
 function Words(){
     const [showCard, setShowCard] = useState(false);
@@ -53,7 +54,7 @@ function Words(){
             </div>
             <Box
                 sx={{
-                    minHeight:'60px'
+                    minHeight:'150px'
                 }}
             >
                 {showCard && <Card variant="outlined">

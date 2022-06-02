@@ -41,12 +41,11 @@ function History(){
         <div className="history-container">
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                 <TableContainer sx={{ maxHeight: 550, width: 350 }}>
-                    <Table stickyHeader aria-label="sticky table">
+                    <Table size="small" stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
                                 <TableCell>{t('word')}</TableCell>
                                 <TableCell>{t('english')}</TableCell>
-                                <TableCell>{t('category')}</TableCell>
                                 <TableCell align="right">{t('delete')}</TableCell>
                             </TableRow>
                         </TableHead>
@@ -60,7 +59,6 @@ function History(){
                                         {row.original}
                                     </TableCell>
                                     <TableCell align="left">{row.english}</TableCell>
-                                    <TableCell align="left">{row.type}</TableCell>
                                     <TableCell align="right">
                                         <DeleteOutline
                                             color="error"

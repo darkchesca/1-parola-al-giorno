@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {BottomNavigation, BottomNavigationAction, Box} from "@mui/material";
+import {BottomNavigation, BottomNavigationAction, Box, Grid} from "@mui/material";
 import RestoreIcon from "@mui/icons-material/Restore";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
@@ -14,7 +14,7 @@ function Navigation(){
         navigate(`${newValue}`);
     }
     return(
-        <Box sx={{ width: 500 }}>
+        <Grid>
             <BottomNavigation
                 showLabels
                 value={value}
@@ -36,7 +36,7 @@ function Navigation(){
                     icon={<SettingsApplicationsIcon />}
                 />
             </BottomNavigation>
-        </Box>
+        </Grid>
     )
 }
 

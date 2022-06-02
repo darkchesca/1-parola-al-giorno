@@ -28,19 +28,19 @@ function Settings() {
 
   return (
     <Box
-      component="form"
       sx={{
         m: 1,
-        width: '25ch',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
       }}
-      noValidate
-      autoComplete="off"
     >
-        <div>
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <Box sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+        }}>
+            <FormControl sx={{ m: 1}}>
                 <InputLabel id="language-select">{t('language')}</InputLabel>
                 <Select
                     labelId="language-select"
@@ -53,8 +53,14 @@ function Settings() {
                     <MenuItem value={'en'}>{t('en')}</MenuItem>
                 </Select>
             </FormControl>
-        </div>
-        <div>
+        </Box>
+        <Box sx={{
+            m: 1,
+            width: '25ch',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+        }}>
           <TextField
             id="name"
             label="Change Name"
@@ -90,7 +96,7 @@ function Settings() {
               Ko
             </Button>
           </div>
-        </div>
+        </Box>
 
     </Box>
   );

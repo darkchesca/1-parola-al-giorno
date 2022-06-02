@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useTranslation} from "react-i18next";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,12 +8,35 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {DeleteOutline} from "@mui/icons-material";
-
+import words from "../words.json";
 
 function History(){
     const { t } = useTranslation();
-    const ls = localStorage.wordsHistory ? localStorage.wordsHistory : '[]'
-    const localStorageHistory = JSON.parse(ls);
+    const ls = localStorage.wordsHistory ? localStorage.wordsHistory : '[]';
+    const [localStorageHistory, setLocalStorageHistory] = useState(JSON.parse(ls));
+
+    const onDeleteClick = (word, index) => {
+        // delete from displayed array
+        const newHistory = localStorageHistory.filter((w) => w.original !== word.original);
+        setLocalStorageHistory(newHistory);
+        // update localStorageHistory
+        localStorage.wordsHistory = JSON.stringify(newHistory);
+
+        // update ls availableWords
+        const type = word.type
+        const refactoredWord = {
+            original: word.original,
+            english: word.english,
+        }
+        let oldAvailableWords = localStorage.availableWords
+            ? JSON.parse(localStorage.availableWords)
+            : words;
+
+        // add word to available words
+        const arrayType = [...oldAvailableWords[type], refactoredWord];
+        oldAvailableWords[type] = arrayType;
+        localStorage.availableWords = JSON.stringify(oldAvailableWords);
+    }
     return (
         <div className="history-container">
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -28,7 +51,7 @@ function History(){
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {localStorageHistory.map((row) => (
+                            {localStorageHistory.map((row, index) => (
                                 <TableRow
                                     key={row.original}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -38,7 +61,12 @@ function History(){
                                     </TableCell>
                                     <TableCell align="left">{row.english}</TableCell>
                                     <TableCell align="left">{row.type}</TableCell>
-                                    <TableCell align="right"><DeleteOutline color="error"/></TableCell>
+                                    <TableCell align="right">
+                                        <DeleteOutline
+                                            color="error"
+                                            onClick={()=>onDeleteClick(row, index)}
+                                        />
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

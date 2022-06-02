@@ -1,11 +1,17 @@
 {
+  "category": "Categoria",
   "choose_type": "Scegli un tipo",
+  "delete": "Elimina",
   "en": "Inglese",
+  "english": "Inglese",
   "hello": "Ciao {{name}}!",
-  "how_about": "",
+  "how_about": "Che ne dici di",
   "it": "Italiano",
   "language": "Lingua",
+  "no_words_left_type": "Hai finito tutti i {{type}}",
   "noun": "Nome",
   "save_to_history": "Salva",
-  "verb": "Verbo"
+  "verb": "Verbo",
+  "word": "Parola",
+  "word_saved": "Parola salvata!"
 }

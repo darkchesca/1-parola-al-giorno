@@ -1,11 +1,17 @@
 {
+  "category": "Category",
   "choose_type": "Choose a type",
+  "delete": "Delete",
   "en": "English",
+  "english": "English",
   "hello": "Hello {{name}}!",
-  "how_about": "",
+  "how_about": "How about..",
   "it": "Italian",
   "language": "Language",
+  "no_words_left_type": "No words left for type {{type}}",
   "noun": "Noun",
   "save_to_history": "Save",
-  "verb": "Verb"
+  "verb": "Verb",
+  "word": "Word",
+  "word_saved": "Word saved!"
 }

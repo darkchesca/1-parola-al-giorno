@@ -5,7 +5,7 @@ import RestoreIcon from "@mui/icons-material/Restore";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import {useNavigate} from "react-router-dom";
-import {Grid, Tooltip} from "@mui/material";
+import {AppBar, Grid, Tooltip} from "@mui/material";
 
 const tabs = [
     {
@@ -32,21 +32,24 @@ function Navigation(){
         navigate(`${newValue}`);
     }
     return(
-        <Grid sx={{display: 'flex', justifyContent: 'center'}}>
-            <Tabs
-                value={value}
-                onChange={onNavigationChange}
+            <AppBar
+                position="sticky"
+                sx={{display: 'flex', alignItems: 'center', backgroundColor: 'transparent'}}
             >
-                {tabs.map((tab) => (<Tab
-                    key={tab.value}
-                    value={tab.value}
-                    icon={<Tooltip
-                        title={tab.label}>
-                        {tab.icon}
-                    </Tooltip>}
-                />))}
-            </Tabs>
-        </Grid>
+                <Tabs
+                    value={value}
+                    onChange={onNavigationChange}
+                >
+                    {tabs.map((tab) => (<Tab
+                        key={tab.value}
+                        value={tab.value}
+                        icon={<Tooltip
+                            title={tab.label}>
+                            {tab.icon}
+                        </Tooltip>}
+                    />))}
+                </Tabs>
+            </AppBar>
     )
 }
 

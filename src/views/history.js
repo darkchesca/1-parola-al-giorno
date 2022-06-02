@@ -11,35 +11,46 @@ import {DeleteOutline} from "@mui/icons-material";
 const rows = [
     {
         word: 'Parola 1',
-        english: 'Words 1'
+        english: 'Words 1',
+        type: 'verbo',
     },{
         word: 'Parola 2',
-        english: 'Words 2'
+        english: 'Words 2',
+        type: 'verbo',
     },{
         word: 'Parola 3',
-        english: 'Words 3'
+        english: 'Words 3',
+        type: 'verbo',
     },{
         word: 'Parola 4',
-        english: 'Words 3'
+        english: 'Words 3',
+        type: 'verbo',
     },{
         word: 'Parola 5',
-        english: 'Words 3'
+        english: 'Words 3',
+        type: 'verbo',
     },{
         word: 'Parola 6',
-        english: 'Words 3'
+        english: 'Words 3',
+        type: 'verbo',
     },{
         word: 'Parola 7',
-        english: 'Words 3'
+        english: 'Words 3',
+        type: 'verbo',
     },{
         word: 'Parola 8',
-        english: 'Words 3'
+        english: 'Words 3',
+        type: 'verbo',
     },{
         word: 'Parola 9',
-        english: 'Words 3'
+        english: 'Words 3',
+        type: 'verbo',
     },
 ]
 
 function History(){
+    const ls = localStorage.wordsHistory ? localStorage.wordsHistory : '[]'
+    const localStorageHistory = JSON.parse(ls);
     return (
         <div className="history-container">
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -49,19 +60,21 @@ function History(){
                             <TableRow>
                                 <TableCell>Word</TableCell>
                                 <TableCell align="right">Translation</TableCell>
+                                <TableCell align="right">Category</TableCell>
                                 <TableCell align="right">Delete</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.map((row) => (
+                            {localStorageHistory.map((row) => (
                                 <TableRow
-                                    key={row.word}
+                                    key={row.original}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell component="th" scope="row">
-                                        {row.word}
+                                        {row.original}
                                     </TableCell>
                                     <TableCell align="right">{row.english}</TableCell>
+                                    <TableCell align="right">{row.type}</TableCell>
                                     <TableCell align="right"><DeleteOutline/></TableCell>
                                 </TableRow>
                             ))}

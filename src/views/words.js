@@ -1,25 +1,40 @@
 import React, {useState} from "react";
+import { useTranslation } from "react-i18next";
 import Greetings from "../components/greetings";
 import {Box, Button, Card, CardContent, Typography} from "@mui/material";
 
 const words = require('../words.json');
 
-// todo make it word of the day with timeout
-// add learn words to blacklist
+
 
 function Words(){
+    const { t } = useTranslation();
+    // show/ hide word card
     const [showCard, setShowCard] = useState(false);
     const [word, setWord] = useState({
         original:'',
-        english: ''
+        english: '',
+        type: '',
     });
 
+    // on noun/ verb click pick random word from words array, based on type
     const onTypeClick = (type) => {
         const wordsGroup = words[type];
-        const newWord = wordsGroup[Math.floor(Math.random()*wordsGroup.length)];
+        let newWord = wordsGroup[Math.floor(Math.random()*wordsGroup.length)];
+        newWord["type"] = type;
         setWord(newWord);
 
         setShowCard(true)
+    }
+
+    // save word to local storage
+    const onSaveToHistoryClick = () => {
+        const oldLocalStorage = localStorage.wordsHistory
+            ? JSON.parse(localStorage.wordsHistory)
+            : [];
+        const wordsHistory = [...oldLocalStorage, word];
+        localStorage.wordsHistory = JSON.stringify(wordsHistory);
+
     }
     return (
         <div className="words-container"
@@ -38,7 +53,7 @@ function Words(){
                     }}
                     onClick={()=>onTypeClick('nouns')}
                 >
-                    Nome
+                    {t('noun')}
                 </Button>
                 <Button
                     variant="contained"
@@ -49,7 +64,7 @@ function Words(){
                     }}
                     onClick={()=>onTypeClick('verbs')}
                 >
-                    Verbo
+                    {t('verb')}
                 </Button>
             </div>
             <Box
@@ -57,19 +72,32 @@ function Words(){
                     minHeight:'150px'
                 }}
             >
-                {showCard && <Card variant="outlined">
-                    <CardContent>
-                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                            Parola del giorno
-                        </Typography>
-                        <Typography variant="h5" color="text.secondary" component="div">
-                            {word.original}
-                        </Typography>
-                        <Typography variant="h5" color="text.secondary" component="div">
-                            {word.english}
-                        </Typography>
-                    </CardContent>
-                </Card>}
+                {showCard && <div>
+                    <Card variant="outlined">
+                        <CardContent>
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                {t('how_about')}
+                            </Typography>
+                            <Typography variant="h5" color="text.secondary" component="div">
+                                {word.original}
+                            </Typography>
+                            <Typography variant="h5" color="text.secondary" component="div">
+                                {word.english}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                    <Button
+                        variant="contained"
+                        color="success"
+                        size="sm"
+                        sx={{
+                            m: 2,
+                        }}
+                        onClick={()=>onSaveToHistoryClick()}
+                    >
+                        {t('save_to_history')}
+                    </Button>
+                </div>}
             </Box>
         </div>
     )

@@ -2,6 +2,10 @@
   "choose_type": "Choose a type",
   "en": "English",
   "hello": "Hello {{name}}!",
+  "how_about": "",
   "it": "Italian",
-  "language": "Language"
+  "language": "Language",
+  "noun": "Noun",
+  "save_to_history": "Save",
+  "verb": "Verb"
 }

@@ -1,7 +1,11 @@
 {
-  "choose_type": "Choose a type",
+  "choose_type": "Scegli un tipo",
   "en": "Inglese",
-  "hello": "Hello {{name}}!",
+  "hello": "Ciao {{name}}!",
+  "how_about": "",
   "it": "Italiano",
-  "language": "Lingua"
+  "language": "Lingua",
+  "noun": "Nome",
+  "save_to_history": "Salva",
+  "verb": "Verbo"
 }

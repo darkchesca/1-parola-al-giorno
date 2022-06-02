@@ -54,7 +54,7 @@ function Settings() {
                 </Select>
             </FormControl>
         </Box>
-        <Box sx={{
+        {/*<Box sx={{
             m: 1,
             width: '25ch',
             display: 'flex',
@@ -96,7 +96,7 @@ function Settings() {
               Ko
             </Button>
           </div>
-        </Box>
+        </Box>*/}
 
     </Box>
   );

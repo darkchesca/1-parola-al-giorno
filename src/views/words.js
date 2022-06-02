@@ -16,8 +16,9 @@ function Words(){
     }
     // show/ hide word card
     const [showCard, setShowCard] = useState(false);
-    const [type, setType] = useState('')
+    const [type, setType] = useState('');
     const [word, setWord] = useState(wordEmptyObj);
+    const [emptyCardText, setEmptyCardText] = useState('')
 
     // on type click pick random word from words array, based on type
     const onTypeClick = (newType) => {
@@ -38,8 +39,9 @@ function Words(){
             setWord(newWord);
             setShowCard(true);
         } else {
-            // show modal: no words left for this group.
-            alert(t('no_words_left_type', {type}));
+            // show message: no words left for this group.
+            setWord(wordEmptyObj);
+            setEmptyCardText(t('no_words_left_type', {type}));
         }
 
     }
@@ -66,6 +68,7 @@ function Words(){
         oldAvailableWords[type] = newAvailableWords;
         localStorage.availableWords = JSON.stringify(oldAvailableWords);
         setWord(wordEmptyObj);
+        setEmptyCardText(t('word_saved'));
 
     }
     return (
@@ -122,7 +125,7 @@ function Words(){
                             </CardContent>
                             : <CardContent>
                                 <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
-                                    {t('word_saved')}
+                                    {emptyCardText}
                                 </Typography>
                         </CardContent>}
                     </Card>

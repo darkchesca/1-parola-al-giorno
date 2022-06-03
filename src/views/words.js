@@ -109,7 +109,7 @@ function Words(){
             >
                 {showCard && <div>
                     <Card variant="outlined" sx={{
-                        minHeight:'120px'
+                        minHeight:'140px'
                     }}>
                         {word.original !== ''
                             ? <CardContent>

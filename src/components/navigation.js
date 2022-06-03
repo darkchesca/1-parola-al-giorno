@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import RestoreIcon from "@mui/icons-material/Restore";
@@ -31,6 +31,11 @@ function Navigation(){
         setValue(newValue);
         navigate(`${newValue}`);
     }
+
+    useEffect(() => {
+        navigate('/');
+    },[])
+
     return(
             <AppBar
                 position="sticky"

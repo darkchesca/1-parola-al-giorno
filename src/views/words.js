@@ -80,8 +80,8 @@ function Words(){
             <Greetings />
             <div>
                 <Button
-                    variant="contained"
-                    color="info"
+                    variant="outlined"
+                    color="primary"
                     size="sm"
                     sx={{
                         m: 2,
@@ -91,8 +91,8 @@ function Words(){
                     {t('noun')}
                 </Button>
                 <Button
-                    variant="contained"
-                    color="secondary"
+                    variant="outlined"
+                    color="primary"
                     size="sm"
                     sx={{
                         m: 2,
@@ -131,7 +131,7 @@ function Words(){
                     </Card>
                     <Button
                         disabled={word.original === ''}
-                        variant="contained"
+                        variant="outlined"
                         color="success"
                         size="sm"
                         sx={{

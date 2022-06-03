@@ -40,7 +40,7 @@ function History(){
     return (
         <div className="history-container">
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-                <TableContainer sx={{ maxHeight: 550, width: 350 }}>
+                <TableContainer sx={{ maxHeight: 550, width: 330 }}>
                     <Table size="small" stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>

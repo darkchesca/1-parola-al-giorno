@@ -1,10 +1,9 @@
-import './App.css';
-
-import React, {useState} from "react";
+import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
 import History from "./views/history";
 import Words from "./views/words";
 import Settings from "./views/settings";
+import './App.css';
 
 function App() {
 

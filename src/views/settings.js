@@ -43,6 +43,7 @@ function Settings() {
             <FormControl sx={{ m: 1}}>
                 <InputLabel id="language-select">{t('language')}</InputLabel>
                 <Select
+                    color="primary"
                     labelId="language-select"
                     id="language-select"
                     value={lang}

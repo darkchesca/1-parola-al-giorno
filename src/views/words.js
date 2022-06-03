@@ -3,12 +3,18 @@ import { useTranslation } from "react-i18next";
 import Greetings from "../components/greetings";
 import {Box, Button, Card, CardContent, Typography} from "@mui/material";
 
+import useLocalStorage from "../utils/hooks/use-local-storage";
+
 const words = require('../words.json');
 
 
 
 function Words(){
     const { t } = useTranslation();
+    // localStorage available words
+    const [ availableWords, setAvailableWords ] = useLocalStorage('availableWords', words);
+    // localStorage saved words
+    const [ wordsHistory, setWordsHistory ] = useLocalStorage('wordsHistory', []);
     const wordEmptyObj = {
         original:'',
         english: '',
@@ -25,12 +31,12 @@ function Words(){
         setType(newType);
 
         // get filteredWords from localStorage (array with words that have not been saved to history yet)
-        const oldAvailableWords = localStorage.availableWords
+        /*const oldAvailableWords = localStorage.availableWords
             ? JSON.parse(localStorage.availableWords)
-            : words;
+            : words;*/
 
         // isolate array for chosen words group
-        const wordsGroup = oldAvailableWords[newType];
+        const wordsGroup = availableWords[newType];
         // if there are words left in the array
         if(wordsGroup.length){
             // pick a random one and show it
@@ -48,25 +54,19 @@ function Words(){
 
     // save word to local storage
     const onSaveToHistoryClick = () => {
-        // get localStorage wordsHistory
-        const oldWordsHistory = localStorage.wordsHistory
-            ? JSON.parse(localStorage.wordsHistory)
-            : [];
-        // add word to history
-        const wordsHistory = [...oldWordsHistory, word];
-        localStorage.wordsHistory = JSON.stringify(wordsHistory);
+        // add word to history in ls
+        const wordsHistoryNew = [...wordsHistory, word];
+        setWordsHistory(wordsHistoryNew);
 
         // get localStorage words array without the words that are in the history
-        let oldAvailableWords = localStorage.availableWords
-            ? JSON.parse(localStorage.availableWords)
-            : words;
+        let oldAvailableWords = availableWords;
 
         // delete word from array of available words
         const newAvailableWords = oldAvailableWords[type].filter(w => {
             return w.original !== word.original
         });
         oldAvailableWords[type] = newAvailableWords;
-        localStorage.availableWords = JSON.stringify(oldAvailableWords);
+        setAvailableWords(oldAvailableWords);
         setWord(wordEmptyObj);
         setEmptyCardText(t('word_saved'));
 

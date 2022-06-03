@@ -5,7 +5,7 @@ import RestoreIcon from "@mui/icons-material/Restore";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import {useNavigate} from "react-router-dom";
-import {AppBar, Grid, Tooltip} from "@mui/material";
+import {AppBar, Tooltip} from "@mui/material";
 
 const tabs = [
     {

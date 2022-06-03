@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { useTranslation} from "react-i18next";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,18 +9,20 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {DeleteOutline} from "@mui/icons-material";
 import words from "../words.json";
+import useLocalStorage from "../utils/hooks/use-local-storage";
 
 function History(){
     const { t } = useTranslation();
-    const ls = localStorage.wordsHistory ? localStorage.wordsHistory : '[]';
-    const [localStorageHistory, setLocalStorageHistory] = useState(JSON.parse(ls));
+    // localStorage available words
+    const [ availableWords, setAvailableWords ] = useLocalStorage('availableWords', words);
+    // localStorage saved words
+    const [ wordsHistory, setWordsHistory ] = useLocalStorage('wordsHistory', []);
 
-    const onDeleteClick = (word, index) => {
+    const onDeleteClick = (word) => {
         // delete from displayed array
-        const newHistory = localStorageHistory.filter((w) => w.original !== word.original);
-        setLocalStorageHistory(newHistory);
+        const newHistory = wordsHistory.filter((w) => w.original !== word.original);
         // update localStorageHistory
-        localStorage.wordsHistory = JSON.stringify(newHistory);
+        setWordsHistory(newHistory);
 
         // update ls availableWords
         const type = word.type
@@ -28,14 +30,12 @@ function History(){
             original: word.original,
             english: word.english,
         }
-        let oldAvailableWords = localStorage.availableWords
-            ? JSON.parse(localStorage.availableWords)
-            : words;
+        let oldAvailableWords = availableWords
 
         // add word to available words
         const arrayType = [...oldAvailableWords[type], refactoredWord];
         oldAvailableWords[type] = arrayType;
-        localStorage.availableWords = JSON.stringify(oldAvailableWords);
+        setAvailableWords(oldAvailableWords);
     }
     return (
         <div className="history-container">
@@ -50,7 +50,7 @@ function History(){
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {localStorageHistory.map((row, index) => (
+                            {wordsHistory.map((row, index) => (
                                 <TableRow
                                     key={row.original}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

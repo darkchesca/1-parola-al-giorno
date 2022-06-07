@@ -78,7 +78,7 @@ function Words(){
                  textAlign: 'center'
              }}
         >
-            <ViewTitle view={'home'} />
+            <ViewTitle view={t('home')} />
             <Greetings />
             <Box>
                 <Typography sx={{

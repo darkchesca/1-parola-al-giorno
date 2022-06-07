@@ -14,10 +14,10 @@ import useLocalStorage from "../utils/hooks/use-local-storage";
 import ViewTitle from "../components/view-title";
 import { Switch } from "@mui/material";
 
-const StyledTableCell = styled('div', { shouldForwardProp: (prop) => prop !== 'hideTranslation' })
-(({ theme, hideTranslation }) => ({
+const StyledTableCell = styled('div', { shouldForwardProp: (prop) => prop !== 'showTranslation' })
+(({ theme, showTranslation }) => ({
     width: 'fit-content',
-    ...(hideTranslation && {
+    ...(showTranslation && {
         opacity: 0,
     }),
 
@@ -25,7 +25,7 @@ const StyledTableCell = styled('div', { shouldForwardProp: (prop) => prop !== 'h
 
 function History(){
     const { t } = useTranslation();
-    const [hideTranslation, setHideTranslation] = useState(false)
+    const [showTranslation, setShowTranslation] = useState(false)
     // localStorage available words
     const [ availableWords, setAvailableWords ] = useLocalStorage('availableWords', words);
     // localStorage saved words
@@ -53,17 +53,17 @@ function History(){
 
     return (
         <div className="history-container">
-            <ViewTitle view={'saved_words'} />
+            <ViewTitle view={t('saved_words')} />
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-                <TableContainer sx={{ maxHeight: 550, width: 330 }}>
+                <TableContainer sx={{ maxHeight: 500, width: 330, overflow: 'scroll' }}>
                     <Table size="small" stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
                                 <TableCell>{t('word')}</TableCell>
                                 <TableCell>
                                     {t('english')}
-                                    <Switch checked={hideTranslation}
-                                            onChange={()=>setHideTranslation(!hideTranslation)}
+                                    <Switch checked={!showTranslation}
+                                            onChange={()=>setShowTranslation(!showTranslation)}
                                             inputProps={{ 'aria-label': 'hide-translation' }}
                                             size="small"
                                     />
@@ -81,7 +81,7 @@ function History(){
                                         {row.original}
                                     </TableCell>
                                     <TableCell align="left">
-                                        <StyledTableCell hideTranslation={hideTranslation}>
+                                        <StyledTableCell showTranslation={showTranslation}>
                                             {row.english}
                                         </StyledTableCell>
                                     </TableCell>

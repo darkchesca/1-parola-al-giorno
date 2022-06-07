@@ -36,7 +36,7 @@ function Settings() {
         alignItems: 'center',
       }}
     >
-        <ViewTitle view={'settings'} />
+        <ViewTitle view={t('settings')} />
         <Box sx={{
             display: 'flex',
             flexDirection: 'column',

@@ -4,6 +4,7 @@ import Greetings from "../components/greetings";
 import {Box, Button, Card, CardContent, Typography} from "@mui/material";
 
 import useLocalStorage from "../utils/hooks/use-local-storage";
+import ViewTitle from "../components/view-title";
 
 const words = require('../words.json');
 
@@ -77,7 +78,19 @@ function Words(){
                  textAlign: 'center'
              }}
         >
+            <ViewTitle view={'home'} />
             <Greetings />
+            <Box>
+                <Typography sx={{
+                    fontSize: 12,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }} color="text.secondary" gutterBottom>
+                    {t('choose_type')}
+                </Typography>
+
+            </Box>
             <div>
                 <Button
                     variant="outlined"
@@ -109,7 +122,7 @@ function Words(){
             >
                 {showCard && <div>
                     <Card variant="outlined" sx={{
-                        minHeight:'140px'
+                        minHeight:'160px'
                     }}>
                         {word.original !== ''
                             ? <CardContent>
@@ -121,6 +134,9 @@ function Words(){
                                 </Typography>
                                 <Typography variant="h5" color="text.secondary" component="div">
                                     {word.english}
+                                </Typography>
+                                <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
+                                    {t('save_or_choose_again')}
                                 </Typography>
                             </CardContent>
                             : <CardContent>

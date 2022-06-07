@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from "react-i18next";
 import {Box, Button, FormControl, InputLabel, MenuItem, Select, TextField} from '@mui/material';
 import i18next from "i18next";
+import ViewTitle from "../components/view-title";
 
 function Settings() {
     const { t } = useTranslation();
@@ -35,6 +36,7 @@ function Settings() {
         alignItems: 'center',
       }}
     >
+        <ViewTitle view={'settings'} />
         <Box sx={{
             display: 'flex',
             flexDirection: 'column',

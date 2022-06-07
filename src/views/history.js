@@ -1,5 +1,6 @@
-import React from "react";
-import { useTranslation} from "react-i18next";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,12 +8,24 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {DeleteOutline} from "@mui/icons-material";
+import { DeleteOutline } from "@mui/icons-material";
 import words from "../words.json";
 import useLocalStorage from "../utils/hooks/use-local-storage";
+import ViewTitle from "../components/view-title";
+import { Switch } from "@mui/material";
+
+const StyledTableCell = styled('div', { shouldForwardProp: (prop) => prop !== 'hideTranslation' })
+(({ theme, hideTranslation }) => ({
+    width: 'fit-content',
+    ...(hideTranslation && {
+        opacity: 0,
+    }),
+
+}));
 
 function History(){
     const { t } = useTranslation();
+    const [hideTranslation, setHideTranslation] = useState(false)
     // localStorage available words
     const [ availableWords, setAvailableWords ] = useLocalStorage('availableWords', words);
     // localStorage saved words
@@ -37,15 +50,24 @@ function History(){
         oldAvailableWords[type] = arrayType;
         setAvailableWords(oldAvailableWords);
     }
+
     return (
         <div className="history-container">
+            <ViewTitle view={'saved_words'} />
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                 <TableContainer sx={{ maxHeight: 550, width: 330 }}>
                     <Table size="small" stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
                                 <TableCell>{t('word')}</TableCell>
-                                <TableCell>{t('english')}</TableCell>
+                                <TableCell>
+                                    {t('english')}
+                                    <Switch checked={hideTranslation}
+                                            onChange={()=>setHideTranslation(!hideTranslation)}
+                                            inputProps={{ 'aria-label': 'hide-translation' }}
+                                            size="small"
+                                    />
+                                </TableCell>
                                 <TableCell align="right">{t('delete')}</TableCell>
                             </TableRow>
                         </TableHead>
@@ -58,7 +80,11 @@ function History(){
                                     <TableCell component="th" scope="row">
                                         {row.original}
                                     </TableCell>
-                                    <TableCell align="left">{row.english}</TableCell>
+                                    <TableCell align="left">
+                                        <StyledTableCell hideTranslation={hideTranslation}>
+                                            {row.english}
+                                        </StyledTableCell>
+                                    </TableCell>
                                     <TableCell align="right">
                                         <DeleteOutline
                                             color="error"

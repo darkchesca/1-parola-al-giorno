@@ -78,7 +78,6 @@ function Words(){
                  textAlign: 'center'
              }}
         >
-            <ViewTitle view={t('home')} />
             <Greetings />
             <Box>
                 <Typography sx={{
@@ -135,7 +134,7 @@ function Words(){
                                 <Typography variant="h5" color="text.secondary" component="div">
                                     {word.english}
                                 </Typography>
-                                <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
+                                <Typography sx={{fontSize: 14, marginTop: 1}} color="text.secondary" gutterBottom>
                                     {t('save_or_choose_again')}
                                 </Typography>
                             </CardContent>

@@ -53,7 +53,6 @@ function History(){
 
     return (
         <div className="history-container">
-            <ViewTitle view={t('saved_words')} />
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                 <TableContainer sx={{ maxHeight: 500, width: 330, overflow: 'scroll' }}>
                     <Table size="small" stickyHeader aria-label="sticky table">

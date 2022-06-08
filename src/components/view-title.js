@@ -1,20 +1,22 @@
-import React from "react";
-import {Box, Typography} from "@mui/material";
+import React from 'react';
+import { Box, Typography } from '@mui/material';
 
-function ViewTitle({view}){
-    return(
-        <Box>
-            <Typography sx={{
+const ViewTitle = ({ view }) => (
+    <Box>
+        <Typography
+            sx={{
                 fontSize: 40,
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
-            }} color="text.secondary" gutterBottom>
-                {view}
-            </Typography>
+                alignItems: 'center',
+            }}
+            color="text.secondary"
+            gutterBottom
+        >
+            {view}
+        </Typography>
 
-        </Box>
-    )
-}
+    </Box>
+);
 
 export default ViewTitle;

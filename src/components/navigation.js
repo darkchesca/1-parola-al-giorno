@@ -1,40 +1,40 @@
-import React, {useEffect, useState} from "react";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import RestoreIcon from "@mui/icons-material/Restore";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
-import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
-import {useNavigate} from "react-router-dom";
-import {AppBar, Tooltip} from "@mui/material";
-import ViewTitle from "./view-title";
+import RestoreIcon from '@mui/icons-material/Restore';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
+import { useNavigate } from 'react-router-dom';
+import { AppBar, Tooltip } from '@mui/material';
+import ViewTitle from './view-title';
 
 const tabs = [
     {
         value: 'history',
         label: 'History',
         icon: <RestoreIcon />,
-    },{
+    }, {
         value: '/',
         label: 'Words',
         icon: <MenuBookIcon />,
-    },{
+    }, {
         value: 'settings',
         label: 'Settings',
         icon: <SettingsApplicationsIcon />,
     },
-]
+];
 
-function Navigation(){
+const Navigation = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const [value, setValue] = useState('/');
 
     const titleObjs = {
-        'history': t('saved_words'),
+        history: t('saved_words'),
         '/': t('home'),
-        'settings': t('settings'),
-    }
+        settings: t('settings'),
+    };
 
     const [title, setTitle] = useState(titleObjs['/']);
 
@@ -42,17 +42,17 @@ function Navigation(){
         setValue(newValue);
         setTitle(titleObjs[newValue]);
         navigate(`${newValue}`);
-    }
+    };
 
     useEffect(() => {
         navigate('/');
-    },[])
+    }, []);
 
-    return(
+    return (
         <React.Fragment>
             <AppBar
                 position="sticky"
-                sx={{display: 'flex', alignItems: 'center', backgroundColor: 'transparent'}}
+                sx={{ display: 'flex', alignItems: 'center', backgroundColor: 'transparent' }}
             >
                 <Tabs
                     value={value}
@@ -62,7 +62,8 @@ function Navigation(){
                         key={tab.value}
                         value={tab.value}
                         icon={<Tooltip
-                            title={tab.label}>
+                            title={tab.label}
+                        >
                             {tab.icon}
                         </Tooltip>}
                     />))}
@@ -70,7 +71,7 @@ function Navigation(){
             </AppBar>
             <ViewTitle view={title} />
         </React.Fragment>
-    )
-}
+    );
+};
 
 export default Navigation;

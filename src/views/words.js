@@ -1,57 +1,55 @@
-import React, {useState} from "react";
-import { useTranslation } from "react-i18next";
-import Greetings from "../components/greetings";
-import {Box, Button, Card, CardContent, Typography} from "@mui/material";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+    Box, Button, Card, CardContent, Typography,
+} from '@mui/material';
+import Greetings from '../components/greetings';
 
-import useLocalStorage from "../utils/hooks/use-local-storage";
-import ViewTitle from "../components/view-title";
+import useLocalStorage from '../utils/hooks/use-local-storage';
 
 const words = require('../words.json');
 
-
-
-function Words(){
+const Words = () => {
     const { t } = useTranslation();
     // localStorage available words
-    const [ availableWords, setAvailableWords ] = useLocalStorage('availableWords', words);
+    const [availableWords, setAvailableWords] = useLocalStorage('availableWords', words);
     // localStorage saved words
-    const [ wordsHistory, setWordsHistory ] = useLocalStorage('wordsHistory', []);
+    const [wordsHistory, setWordsHistory] = useLocalStorage('wordsHistory', []);
     const wordEmptyObj = {
-        original:'',
+        original: '',
         english: '',
         type: '',
-    }
+    };
     // show/ hide word card
     const [showCard, setShowCard] = useState(false);
     const [type, setType] = useState('');
     const [word, setWord] = useState(wordEmptyObj);
-    const [emptyCardText, setEmptyCardText] = useState('')
+    const [emptyCardText, setEmptyCardText] = useState('');
 
     // on type click pick random word from words array, based on type
     const onTypeClick = (newType) => {
         setType(newType);
 
         // get filteredWords from localStorage (array with words that have not been saved to history yet)
-        /*const oldAvailableWords = localStorage.availableWords
+        /* const oldAvailableWords = localStorage.availableWords
             ? JSON.parse(localStorage.availableWords)
-            : words;*/
+            : words; */
 
         // isolate array for chosen words group
         const wordsGroup = availableWords[newType];
         // if there are words left in the array
-        if(wordsGroup.length){
+        if (wordsGroup.length) {
             // pick a random one and show it
-            let newWord = wordsGroup[Math.floor(Math.random()*wordsGroup.length)];
-            newWord["type"] = newType;
+            const newWord = wordsGroup[Math.floor(Math.random() * wordsGroup.length)];
+            newWord.type = newType;
             setWord(newWord);
             setShowCard(true);
         } else {
             // show message: no words left for this group.
             setWord(wordEmptyObj);
-            setEmptyCardText(t('no_words_left_type', {type}));
+            setEmptyCardText(t('no_words_left_type', { type }));
         }
-
-    }
+    };
 
     // save word to local storage
     const onSaveToHistoryClick = () => {
@@ -60,32 +58,36 @@ function Words(){
         setWordsHistory(wordsHistoryNew);
 
         // get localStorage words array without the words that are in the history
-        let oldAvailableWords = availableWords;
+        const oldAvailableWords = availableWords;
 
         // delete word from array of available words
-        const newAvailableWords = oldAvailableWords[type].filter(w => {
-            return w.original !== word.original
-        });
+        const newAvailableWords = oldAvailableWords[type]
+            .filter((w) => w.original !== word.original);
         oldAvailableWords[type] = newAvailableWords;
         setAvailableWords(oldAvailableWords);
         setWord(wordEmptyObj);
         setEmptyCardText(t('word_saved'));
+    };
 
-    }
     return (
-        <div className="words-container"
-             style={{
-                 textAlign: 'center'
-             }}
+        <div
+            className="words-container"
+            style={{
+                textAlign: 'center',
+            }}
         >
             <Greetings />
             <Box>
-                <Typography sx={{
-                    fontSize: 12,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }} color="text.secondary" gutterBottom>
+                <Typography
+                    sx={{
+                        fontSize: 12,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                    color="text.secondary"
+                    gutterBottom
+                >
                     {t('choose_type')}
                 </Typography>
 
@@ -98,7 +100,7 @@ function Words(){
                     sx={{
                         m: 2,
                     }}
-                    onClick={()=>onTypeClick('nouns')}
+                    onClick={() => onTypeClick('nouns')}
                 >
                     {t('noun')}
                 </Button>
@@ -109,23 +111,30 @@ function Words(){
                     sx={{
                         m: 2,
                     }}
-                    onClick={()=>onTypeClick('verbs')}
+                    onClick={() => onTypeClick('verbs')}
                 >
                     {t('verb')}
                 </Button>
             </div>
             <Box
                 sx={{
-                    minHeight:'150px'
+                    minHeight: '150px',
                 }}
             >
                 {showCard && <div>
-                    <Card variant="outlined" sx={{
-                        minHeight:'160px'
-                    }}>
+                    <Card
+                        variant="outlined"
+                        sx={{
+                            minHeight: '160px',
+                        }}
+                    >
                         {word.original !== ''
                             ? <CardContent>
-                                <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
+                                <Typography
+                                    sx={{ fontSize: 14 }}
+                                    color="text.secondary"
+                                    gutterBottom
+                                >
                                     {t('how_about')}
                                 </Typography>
                                 <Typography variant="h5" color="text.secondary" component="div">
@@ -134,15 +143,23 @@ function Words(){
                                 <Typography variant="h5" color="text.secondary" component="div">
                                     {word.english}
                                 </Typography>
-                                <Typography sx={{fontSize: 14, marginTop: 1}} color="text.secondary" gutterBottom>
+                                <Typography
+                                    sx={{ fontSize: 14, marginTop: 1 }}
+                                    color="text.secondary"
+                                    gutterBottom
+                                >
                                     {t('save_or_choose_again')}
                                 </Typography>
                             </CardContent>
                             : <CardContent>
-                                <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
+                                <Typography
+                                    sx={{ fontSize: 14 }}
+                                    color="text.secondary"
+                                    gutterBottom
+                                >
                                     {emptyCardText}
                                 </Typography>
-                        </CardContent>}
+                            </CardContent>}
                     </Card>
                     <Button
                         disabled={word.original === ''}
@@ -152,14 +169,14 @@ function Words(){
                         sx={{
                             m: 2,
                         }}
-                        onClick={()=>onSaveToHistoryClick()}
+                        onClick={() => onSaveToHistoryClick()}
                     >
                         {t('save_to_history')}
                     </Button>
                 </div>}
             </Box>
         </div>
-    )
-}
+    );
+};
 
 export default Words;

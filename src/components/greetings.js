@@ -1,12 +1,11 @@
-import React, {useEffect, useState} from "react";
-import { useTranslation} from "react-i18next";
-import {Box, Typography} from "@mui/material";
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Box, Typography } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-
-function Greetings(){
-    const { t } = useTranslation()
-    const [greeting, setGreeting] = useState('')
+const Greetings = () => {
+    const { t } = useTranslation();
+    const [greeting, setGreeting] = useState('');
 
     useEffect(() => {
         // on component mount set random greeting
@@ -22,31 +21,41 @@ function Greetings(){
             t('are_you_camera_smile'),
             t('extra_heart_mine_stolen'),
         ];
-        setGreeting(randomGreeting[Math.floor(Math.random()*randomGreeting.length)])
-    },[])
+        setGreeting(randomGreeting[Math.floor(Math.random() * randomGreeting.length)]);
+    }, []);
 
-    return(
+    return (
         <Box>
-            <Typography sx={{
-                fontSize: 16,
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center'
-            }} color="text.secondary" gutterBottom>
-                {t('hello', { name: 'Ike'})} <FavoriteIcon color="error" />
+            <Typography
+                sx={{
+                    fontSize: 16,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+                color="text.secondary"
+                gutterBottom
+            >
+                {t('hello', { name: 'Ike' })}
+                {' '}
+                <FavoriteIcon color="error" />
             </Typography>
-            <Typography sx={{
-                fontSize: 14,
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '100px',
-                width: '300px',
-            }} color="text.secondary" gutterBottom>
+            <Typography
+                sx={{
+                    fontSize: 14,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '100px',
+                    width: '300px',
+                }}
+                color="text.secondary"
+                gutterBottom
+            >
                 {greeting}
             </Typography>
         </Box>
-    )
-}
+    );
+};
 
 export default Greetings;

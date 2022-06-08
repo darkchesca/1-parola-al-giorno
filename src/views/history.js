@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,14 +8,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { DeleteOutline } from "@mui/icons-material";
-import words from "../words.json";
-import useLocalStorage from "../utils/hooks/use-local-storage";
-import ViewTitle from "../components/view-title";
-import { Switch } from "@mui/material";
+import { DeleteOutline } from '@mui/icons-material';
+import { Switch } from '@mui/material';
+import words from '../words.json';
+import useLocalStorage from '../utils/hooks/use-local-storage';
 
-const StyledTableCell = styled('div', { shouldForwardProp: (prop) => prop !== 'showTranslation' })
-(({ theme, showTranslation }) => ({
+const StyledTableCell = styled(
+    'div',
+    { shouldForwardProp: (prop) => prop !== 'showTranslation' },
+)(({ showTranslation }) => ({
     width: 'fit-content',
     ...(showTranslation && {
         opacity: 0,
@@ -23,13 +24,13 @@ const StyledTableCell = styled('div', { shouldForwardProp: (prop) => prop !== 's
 
 }));
 
-function History(){
+const History = () => {
     const { t } = useTranslation();
-    const [showTranslation, setShowTranslation] = useState(false)
+    const [showTranslation, setShowTranslation] = useState(false);
     // localStorage available words
-    const [ availableWords, setAvailableWords ] = useLocalStorage('availableWords', words);
+    const [availableWords, setAvailableWords] = useLocalStorage('availableWords', words);
     // localStorage saved words
-    const [ wordsHistory, setWordsHistory ] = useLocalStorage('wordsHistory', []);
+    const [wordsHistory, setWordsHistory] = useLocalStorage('wordsHistory', []);
 
     const onDeleteClick = (word) => {
         // delete from displayed array
@@ -38,18 +39,18 @@ function History(){
         setWordsHistory(newHistory);
 
         // update ls availableWords
-        const type = word.type
+        const { type } = word;
         const refactoredWord = {
             original: word.original,
             english: word.english,
-        }
-        let oldAvailableWords = availableWords
+        };
+        const oldAvailableWords = availableWords;
 
         // add word to available words
         const arrayType = [...oldAvailableWords[type], refactoredWord];
         oldAvailableWords[type] = arrayType;
         setAvailableWords(oldAvailableWords);
-    }
+    };
 
     return (
         <div className="history-container">
@@ -61,10 +62,11 @@ function History(){
                                 <TableCell>{t('word')}</TableCell>
                                 <TableCell>
                                     {t('english')}
-                                    <Switch checked={!showTranslation}
-                                            onChange={()=>setShowTranslation(!showTranslation)}
-                                            inputProps={{ 'aria-label': 'hide-translation' }}
-                                            size="small"
+                                    <Switch
+                                        checked={!showTranslation}
+                                        onChange={() => setShowTranslation(!showTranslation)}
+                                        inputProps={{ 'aria-label': 'hide-translation' }}
+                                        size="small"
                                     />
                                 </TableCell>
                                 <TableCell align="right">{t('delete')}</TableCell>
@@ -87,7 +89,7 @@ function History(){
                                     <TableCell align="right">
                                         <DeleteOutline
                                             color="error"
-                                            onClick={()=>onDeleteClick(row, index)}
+                                            onClick={() => onDeleteClick(row, index)}
                                         />
                                     </TableCell>
                                 </TableRow>
@@ -97,7 +99,7 @@ function History(){
                 </TableContainer>
             </Paper>
         </div>
-    )
-}
+    );
+};
 
 export default History;
